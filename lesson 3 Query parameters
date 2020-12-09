@@ -1,0 +1,49 @@
+const express = require('express');
+const app = express();
+
+const port = 3000;
+
+app.set('view engine', 'pug');
+app.set('views', './views');
+
+var users =[
+            { id: 1, name: 'thien' },
+            { id: 2, name: 'huong' }
+        ];
+
+app.get('/', function(req, res) {
+    res.render('index');
+})
+
+app.get('/user', function(req, res) {
+    res.render('users/index', {
+        users: users
+    });
+});
+
+app.get('/users/search', function(req,res){
+	var q = req.query.q;
+	var matchUsers =users.filter(function(user){
+		return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+	});
+
+	res.render('users/index', {
+		users: matchUsers
+	})
+});
+app.listen(port, function() {
+    console.log('sever listening on port ' + port);
+})
+
+
+----
+./views/users/index.pub
+
+h1 users
+
+form(action ="/users/search", method="GET")
+	input(type="text", name='q')
+	buttom Search
+ul 
+    each user in users
+    li = user.name
