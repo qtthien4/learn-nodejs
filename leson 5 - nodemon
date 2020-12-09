@@ -1,0 +1,3 @@
+bước 1: add npm i --save-dev nodemon
+Bước 2: vào file package.json add line "start": "nodemon index.js" trong phần scripts
+Để chạy server: npm start
