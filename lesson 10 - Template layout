@@ -1,0 +1,31 @@
+thêm css vao trong pug
+
+Tạo views/layout/common.pug
+
+html
+  head
+      link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css", rel="stylesheet")
+  body 
+  block content
+  
+-----------
+ file nào cần gắn file css này vào thì 
+ extent (đường dẫn đên file common.pug)
+ block content
+---- ví dụ file index.js của users
+extends ../layouts/common.pug
+
+block content
+	h1 Users
+	a(href="/users/create") create users
+
+	form(action ="/users/search", method="GET",class="d-flex")
+		input(type="text", name='q', class="form-control")
+		button(class="btn btn-primary ms-2") Search
+
+	ul
+		each user in users
+			li
+				span=user.name
+				span 
+				a(href='/users/' + user.id) view
